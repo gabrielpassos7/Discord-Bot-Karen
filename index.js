@@ -1,3 +1,4 @@
+
 /* Mantendo o bot online */
 
 const express = require('express');
@@ -48,7 +49,6 @@ client.on("messageCreate", msg => {
 
   
   /* Executadas */
-  
   if (msg.content ===  prefix + "help"){
     // inside a command, event listener, etc.
     const exampleEmbed = new MessageEmbed()
@@ -76,16 +76,19 @@ client.on("messageCreate", msg => {
       .setFooter({ text: `${client.user.tag}`, iconURL: client.user.displayAvatarURL() });
     msg.channel.send({ embeds: [exampleEmbed] });
   }
-  else if (msg.content.startsWith(prefix + "agendar")) {
+  else if (msg.content.startsWith(prefix + "agendar") && msg.content.slice(11) != "") {
 
-    if (comp1 == "") {
-      comp1 = msg.content.slice(10).split()
+    if (comp1 == ""){
+      comp1 = msg.content.slice(11).split()
+      msg.channel.send("Compromisso **'"+comp1 +"'** agendado com sucesso!")
     }
     else if (comp2 == "") {
-      comp2 = msg.content.slice(10).split()
+      comp2 = msg.content.slice(11).split()
+msg.channel.send("Compromisso **'"+ comp2 +"'** agendado com sucesso!")
     }
     else if (comp3 == "") {
-      comp3 = msg.content.slice(10).split()
+      comp3 = msg.content.slice(11).split()
+msg.channel.send("Compromisso **'"+ comp3 +"'** agendado com sucesso!")
     }
     else {
       msg.channel.send("Agenda cheia!")
@@ -98,7 +101,7 @@ client.on("messageCreate", msg => {
       msg.channel.send("Agenda vazia!")
     }
     else {
-      var agenda = "AGENDA\n" + comp1 +"\n"+ comp2 +"\n"+ comp3
+      var agenda = "```\nAGENDA\n[1-] "+ comp1 +"\n[2-] "+ comp2 +"\n[3-] "+ comp3+"```\n"
     
     msg.channel.send(agenda)
     }
